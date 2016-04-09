@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour {
                 {
                     Vector3 targetPosition = transform.position + new Vector3(0, 1, 0);
                     transform.position = Vector3.Lerp(transform.position, targetPosition, 0.2f);
-                }   
+                }
             }
         }
 	}
