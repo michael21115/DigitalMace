@@ -9,6 +9,8 @@ public class CamController_ElijahsMOD : MonoBehaviour {
     [SerializeField] float maxHeight = 40;
 
     List<Transform> listOfPlayers = new List<Transform>();
+    List<float> xPositions = new List<float>();
+    List<float> zPositions = new List<float>();
 
     float averageXpos = 0;
     float averageZpos = 0;
@@ -23,7 +25,7 @@ public class CamController_ElijahsMOD : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update ()
+    void Update()
     {
         CalculateDistance();
 
@@ -39,7 +41,7 @@ public class CamController_ElijahsMOD : MonoBehaviour {
         transform.position = new Vector3(averageXpos, CalculateDistance(), averageZpos);
     }
 
-    float CalculateDistance ()
+    float CalculateDistance()
     {
         // Distances between each player's position
 
