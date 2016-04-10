@@ -18,6 +18,7 @@ public class CamController_ElijahsMOD : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
+        // Adding the players to a list just in case (I could also use the array but idk if we will be destroying objects)
         foreach (Transform player in players)
         {
             listOfPlayers.Add(player);
@@ -31,10 +32,12 @@ public class CamController_ElijahsMOD : MonoBehaviour {
 
         foreach (Transform player in listOfPlayers)
         {
+            // Creating a list, tracking x and z positions
             averageXpos += player.position.x;
             averageZpos += player.position.z;
         }
 
+        // Tracking the average should put cam in the middle of all players
         averageXpos /= listOfPlayers.Count;
         averageZpos /= listOfPlayers.Count;
 
