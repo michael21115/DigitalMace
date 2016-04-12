@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour {
     {
         joystickArray = new string[] { "NULL", "NULL", "NULL", "NULL" };
 
+        // This doesn't work but, the idea is to track the controllers and slot numbers
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
             if (Input.GetJoystickNames()[i] != null)
@@ -33,6 +34,9 @@ public class PlayerController : MonoBehaviour {
             Debug.Log(listOfJoysticks[i] + " added to list at position " + i);
         }
 
+
+        // For each joystick attached, control that coresponding player
+        // Maybe we will have a player select screen?
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
             if (Input.GetJoystickNames()[i] == Input.GetJoystickNames()[i])
