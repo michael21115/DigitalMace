@@ -19,7 +19,7 @@ public class fogOfWarDetect : MonoBehaviour {
 	// Randomly turn lights off
 	void Update () {
 		float flickerCheck = Random.value;
-		if (flickerCheck <= .005f){
+		if (flickerCheck <= .0005f){
 			if (roomLight.activeInHierarchy){			
 				roomLight.SetActive(false);
 			}
