@@ -16,20 +16,25 @@ public class OpenScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-	    if(Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("E PRESSED");
-            if (open)
-                open = !open;
-            else if (!open)
-                open = !open;
-        }
-
-
         if (open)
             transform.position = Vector3.Lerp(transform.position, openPosition, 0.15f);
 
         if (!open)
             transform.position = Vector3.Lerp(transform.position, closedPosition, 0.15f);
+    }
+
+    void OnTriggerStay(Collider col)
+    {
+        if (col.tag == "Player")
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Debug.Log("E PRESSED");
+                if (open)
+                    open = !open;
+                else if (!open)
+                    open = !open;
+            }
+        }
     }
 }
