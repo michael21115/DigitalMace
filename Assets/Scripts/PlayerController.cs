@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using XInputDotNetPure;
 
 public class PlayerController : MonoBehaviour {
 
     [SerializeField] Transform[] players;
+    [SerializeField] float speed = 50;
 
     List<string> listOfJoysticks = new List<string>();
     string[] joystickArray;
@@ -29,24 +31,76 @@ public class PlayerController : MonoBehaviour {
 
                 listOfJoysticks.RemoveAt(i);
             }
-            Debug.Log("joystick_" + (i + 1) + " = " + joystickArray[i]);
+            //Debug.Log("joystick_" + (i + 1) + " = " + joystickArray[i]);
 
-            Debug.Log(listOfJoysticks[i] + " added to list at position " + i);
+            //Debug.Log(listOfJoysticks[i] + " added to list at position " + i);
         }
 
+        PlayerInput();
 
+
+    }
+
+    void PlayerInput ()
+    {
         // For each joystick attached, control that coresponding player
         // Maybe we will have a player select screen?
         for (int i = 0; i < Input.GetJoystickNames().Length; i++)
         {
-            if (Input.GetJoystickNames()[i] == Input.GetJoystickNames()[i])
+            float horizontal = Input.GetAxis("Joy " + i + " Horizontal");
+            float vertical = Input.GetAxis("Joy " + i + " Vertical");
+            Vector3 movement = new Vector3(horizontal, 0, vertical) * speed;
+
+            //players[i].position += movement * Time.deltaTime;
+            players[i].GetComponent<Rigidbody>().velocity = movement + Physics.gravity;
+
+            if (movement != Vector3.zero)
             {
-                float horizontal = Input.GetAxis("Joy " + i + " Horizontal");
-                float vertical = Input.GetAxis("Joy " + i + " Vertical");
+                //snaps to movement direction... a little jumpy
+                players[i].forward = Vector3.Normalize(movement);
+            }
 
-                Vector3 movement = new Vector3(horizontal, 0, vertical) * 10;
+            //Add player buttons and data loss capture
 
-                players[i].position += movement * Time.deltaTime;
+            // Input for xBox Controllers
+            if (Input.GetJoystickNames()[i].Contains("Xbox"))
+            {
+                if (Input.GetButtonDown("Joy " + i + " A"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'A'");
+                }
+                if (Input.GetButtonDown("Joy " + i + " B"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'B'");
+                }
+                if (Input.GetButtonDown("Joy " + i + " X"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'X'");
+                }
+                if (Input.GetButtonDown("Joy " + i + " Y"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'Y'");
+                }
+            }
+            // Input for other (PS4) Controllers
+            else if (Input.GetJoystickNames()[i].Contains("Wireless"))
+            {
+                if (Input.GetButtonDown("Joy " + i + " A"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'square'");
+                }
+                if (Input.GetButtonDown("Joy " + i + " B"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'cross'");
+                }
+                if (Input.GetButtonDown("Joy " + i + " X"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'circle'");
+                }
+                if (Input.GetButtonDown("Joy " + i + " Y"))
+                {
+                    Debug.Log("Player " + i + 1 + " pressed 'triangle'");
+                }
             }
         }
     }
