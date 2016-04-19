@@ -14,7 +14,7 @@ public class DoorGen : MonoBehaviour {
 	void OnTriggerEnter(Collider collider){
 		if (collider.tag == "Wall"){
 			float doorGenRand = Random.value;
-			if (doorGenRand <= .2f){
+			if (doorGenRand <= .05f){
 				if (collider.tag == "Wall"){
 					Destroy(collider.gameObject);
 				}
