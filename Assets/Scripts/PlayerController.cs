@@ -40,7 +40,9 @@ public class PlayerController : MonoBehaviour {
 
 
     }
-
+    /// <summary>
+    /// Checks for and runs player input
+    /// </summary>
     void PlayerInput ()
     {
         // For each joystick attached, control that coresponding player
@@ -68,6 +70,19 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetButtonDown("Joy " + i + " A"))
                 {
                     Debug.Log("Player " + i + 1 + " pressed 'A'");
+
+                    if (players[i].GetComponent<ObjectInteraction>().throwItem)
+                    {
+                        Rigidbody objectRB = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0).GetComponent<Rigidbody>();
+
+                        // throw the game object in your off hand
+                        players[i].GetComponent<ObjectInteraction>().throwItem = false;
+                        objectRB.constraints = RigidbodyConstraints.None;
+                        objectRB.constraints = RigidbodyConstraints.FreezeRotation;
+                        objectRB.AddForce(players[i].forward * players[i].GetComponent<ObjectInteraction>().throwForce * 1000f);
+                        objectRB.useGravity = true;
+                        players[i].GetComponent<ObjectInteraction>().hands[0].DetachChildren();
+                    }
                 }
                 if (Input.GetButtonDown("Joy " + i + " B"))
                 {
@@ -92,6 +107,19 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetButtonDown("Joy " + i + " B"))
                 {
                     Debug.Log("Player " + i + 1 + " pressed 'cross'");
+
+                    if (players[i].GetComponent<ObjectInteraction>().throwItem)
+                    {
+                        Rigidbody objectRB = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0).GetComponent<Rigidbody>();
+
+                        // throw the game object in your off hand
+                        players[i].GetComponent<ObjectInteraction>().throwItem = false;
+                        objectRB.constraints = RigidbodyConstraints.None;
+                        objectRB.constraints = RigidbodyConstraints.FreezeRotation;
+                        objectRB.AddForce(players[i].forward * players[i].GetComponent<ObjectInteraction>().throwForce * 1000f);
+                        objectRB.useGravity = true;
+                        players[i].GetComponent<ObjectInteraction>().hands[0].DetachChildren();
+                    }
                 }
                 if (Input.GetButtonDown("Joy " + i + " X"))
                 {

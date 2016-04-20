@@ -3,14 +3,13 @@ using System.Collections;
 
 public class ObjectInteraction : MonoBehaviour {
 
-    [SerializeField] Transform[] hands;
-
-    bool throwItem, keyItem;
+    [SerializeField] public Transform[] hands;
+    public float throwForce;
+    public bool throwItem, keyItem;
 
 	// Use this for initialization
 	void Start ()
     {
-        //hands = GetComponentsInChildren<Transform>();
 	}
 	
 	// Update is called once per frame
@@ -20,20 +19,23 @@ public class ObjectInteraction : MonoBehaviour {
 
     void OnCollisionEnter(Collision other)
     {
+        Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
+
         if (other.collider.tag == "Grabby Thing" && !throwItem)
         {
-            other.transform.position = transform.GetChild(1).position;
-            other.transform.parent = transform.GetChild(1);
+            otherRB.constraints = RigidbodyConstraints.FreezeAll;
+            other.transform.position = hands[0].position;
+            other.transform.SetParent(hands[0]);
+            otherRB.useGravity = false;
             throwItem = true;
-            //return other.gameObject;
         }
         else if (other.collider.tag == "Key Item" && !keyItem)
         {
-            other.transform.position = transform.GetChild(0).position;
-            other.transform.parent = transform.GetChild(0);
+            otherRB.constraints = RigidbodyConstraints.FreezeAll;
+            other.transform.position = hands[1].position;
+            other.transform.SetParent(hands[1]);
+            otherRB.useGravity = false;
             keyItem = true;
-            //return other.gameObject;
         }
-        //else return null;
     }
 }
