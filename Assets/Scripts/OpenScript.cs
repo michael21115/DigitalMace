@@ -23,18 +23,26 @@ public class OpenScript : MonoBehaviour {
             transform.position = Vector3.Lerp(transform.position, closedPosition, 0.15f);
     }
 
-    void OnTriggerStay(Collider col)
-    {
-        if (col.tag == "Player")
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("E PRESSED");
-                if (open)
-                    open = !open;
-                else if (!open)
-                    open = !open;
-            }
-        }
-    }
+//    void OnTriggerStay(Collider col)
+//    {
+//        if (col.tag == "Player")
+//        {
+//            if (Input.GetKeyDown(KeyCode.E))
+//            {
+//                Debug.Log("E PRESSED");
+//                if (open)
+//                    open = !open;
+//                else if (!open)
+//                    open = !open;
+//            }
+//        }
+//    }
+
+	void OnTriggerEnter (Collider collider){
+		if (collider.gameObject.tag == "Player"){
+			open = !open;
+		} else {
+			return;
+		}
+	}
 }

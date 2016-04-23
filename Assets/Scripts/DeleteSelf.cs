@@ -59,12 +59,10 @@ public class DeleteSelf : MonoBehaviour {
                 Transform temp = Instantiate(doorPrefab, spawnPosition, Quaternion.Euler(spawnRotation)) as Transform;
                 temp.position += transform.right * 0.5f;
                 temp.transform.parent = transform.parent;
-				Debug.Log("doop");
-
             }
 			else if(rightRayInfo.collider.tag == "Untagged"){
 				Debug.DrawRay(transform.position, transform.right, Color.red);    
-				Debug.Log(rightRayInfo.collider.tag);
+//				Debug.Log(rightRayInfo.collider.tag);
 			}
             
             if (rightRayInfo.collider.tag == "Outer")
