@@ -28,22 +28,6 @@ public class CamController_ElijahsMOD : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        CalculateDistance();
-
-        //Working CameraTracking
-        /*
-        foreach (Transform player in listOfPlayers)
-        {
-            averageXpos += player.position.x;
-            averageZpos += player.position.z;
-        }
-
-        // Tracking the average should put cam in the middle of all players
-        averageXpos /= listOfPlayers.Count;
-        averageZpos /= listOfPlayers.Count;
-        */
-        //Broken CameraTracking
-        
         foreach (Transform player in listOfPlayers)
         {
             // Creating a list, tracking x and z positions
@@ -51,17 +35,9 @@ public class CamController_ElijahsMOD : MonoBehaviour {
             zPositions.Add(player.position.z);
         }
 
-        // Gather minimum and maximum positions to average cam position
-        averageXpos = (MaxPosition(xPositions) + MinPosition(xPositions)) / 2f;
-        averageZpos = (MaxPosition(zPositions) + MinPosition(zPositions)) / 2f;
+        CalculateDistance();
 
-        //Debug.Log(MaxPosition(zPositions) + " " + MinPosition(zPositions));
-        Debug.Log(players[0].transform.position);
-        
-        transform.position = new Vector3(averageXpos, CalculateDistance(), averageZpos);
-        xPositions.Clear();
-        zPositions.Clear();
-
+        AverageTracking();
     }
 
     float CalculateDistance()
@@ -104,5 +80,19 @@ public class CamController_ElijahsMOD : MonoBehaviour {
             }
         }
         return MinPosition;
+    }
+
+    void AverageTracking()
+    {
+        // Gather minimum and maximum positions to average cam position
+        averageXpos = (MaxPosition(xPositions) + MinPosition(xPositions)) / 2f;
+        averageZpos = (MaxPosition(zPositions) + MinPosition(zPositions)) / 2f;
+
+        //Debug.Log(MaxPosition(zPositions) + " " + MinPosition(zPositions));
+        //Debug.Log(players[0].transform.position);
+
+        transform.position = new Vector3(averageXpos, CalculateDistance(), averageZpos);
+        xPositions.Clear();
+        zPositions.Clear();
     }
 }
