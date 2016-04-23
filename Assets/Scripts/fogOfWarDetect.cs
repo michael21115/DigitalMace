@@ -15,24 +15,24 @@ public class fogOfWarDetect : MonoBehaviour {
 //			roomLight.SetActive(true);
 //		}
 //	}
-
-	// Randomly turn lights off
-	void Update () {
-		float flickerCheck = Random.value;
-		if (flickerCheck <= .0005f){
-			if (roomLight.activeInHierarchy){			
-				roomLight.SetActive(false);
-			}
-// 			TURN ON LIGHTS RANDOMLY
+//
+//	// Randomly turn lights off
+//	void Update () {
+//		float flickerCheck = Random.value;
+//		if (flickerCheck <= .0005f){
+//			if (roomLight.activeInHierarchy){			
+//				roomLight.SetActive(false);
+//			}
+// 			//TURN ON LIGHTS RANDOMLY
 //			else if (roomLight.activeInHierarchy == false){
 //				roomLight.SetActive(true);
 //			} 
-			// ... or else nothing happens
-			else {
-				return;
-			}
-		}
-	}
+//			// ... or else nothing happens
+//			else {
+//				return;
+//			}
+//		}
+//	}
 
 	// FOG OF WAR ACTIVATION
 	// very simple player detection
