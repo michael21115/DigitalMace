@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class roomDecorationPlacer : MonoBehaviour {
     
@@ -7,8 +8,9 @@ public class roomDecorationPlacer : MonoBehaviour {
     int counter = 0;
     [SerializeField] Transform blueprint;
     [SerializeField] Transform chairPrefab;
-    [SerializeField] Transform couchPrefab; 
+    [SerializeField] Transform couchPrefab;     
     [SerializeField] Transform deskPrefab;
+<<<<<<< HEAD:Assets/Scripts/roomDecorationPlacer.cs
 
 	void SpawnObject(Object furniture) {
 		Transform temp = (Transform)Instantiate(furniture, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
@@ -16,6 +18,9 @@ public class roomDecorationPlacer : MonoBehaviour {
 		counter++;
 	}
 
+=======
+ 
+>>>>>>> bba82398bfd3fa6b2dfb2762d25bf4a7cd259c93:Assets/Scripts/roomPlacer/roomDecorationPlacer.cs
     // Use this for initialization
     void Start()
     {
@@ -29,7 +34,13 @@ public class roomDecorationPlacer : MonoBehaviour {
                 //each piece of furniture has a 5% chance of being placed
                 if (randomNumber > 0.85f && randomNumber < .9f)   
                 {
+<<<<<<< HEAD:Assets/Scripts/roomDecorationPlacer.cs
 					SpawnObject(chairPrefab);
+=======
+           
+                    Instantiate(chairPrefab, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
+                    counter++;
+>>>>>>> bba82398bfd3fa6b2dfb2762d25bf4a7cd259c93:Assets/Scripts/roomPlacer/roomDecorationPlacer.cs
                 }
                 if (randomNumber > 0.9f && randomNumber < 0.95f)
                 {
@@ -45,11 +56,13 @@ public class roomDecorationPlacer : MonoBehaviour {
                 if (counter > 0) //this ensures that only a max of around 4-5 objects spawn. 0 objects spawned is also possible
                 {
                     Destroy(gameObject);
-                    break;
+                    
                 }
 
             }
         }
         Destroy ( gameObject ); //destroy the placer after job is done
+
+
     }
 }
