@@ -6,7 +6,7 @@ using XInputDotNetPure;
 public class PlayerController : MonoBehaviour {
 
     [SerializeField] Transform[] players;
-    [SerializeField] float speed = 50;
+    public float speed = 50;
 
     List<string> listOfJoysticks = new List<string>();
     string[] joystickArray;
