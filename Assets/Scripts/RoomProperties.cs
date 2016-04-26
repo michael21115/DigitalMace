@@ -70,8 +70,8 @@ public class RoomProperties : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //Update how many doors are in this room.
 
+        //Update how many doors are in this room.
         Ray northRay = new Ray(transform.position, transform.forward);
         RaycastHit northRayInfo = new RaycastHit();
 
