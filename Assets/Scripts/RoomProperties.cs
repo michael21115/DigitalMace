@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum DoorLocations { North, East, South, West };
+
 public class RoomProperties : MonoBehaviour {
 
     /* Door Locations
@@ -9,9 +11,11 @@ public class RoomProperties : MonoBehaviour {
         2 : South
         3 : West
     */
+   
     public bool[] doorLocations;
+    public bool[] doorsChecked;
     public string type;
-    public int[] size;
+    public bool accessible = false;
 
     int numberOfDoors = 0;
 
@@ -21,6 +25,8 @@ public class RoomProperties : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        doorsChecked = new bool[4];
+
         //Count the number of set doors in this room
         foreach(bool isDoor in doorLocations)
         {
@@ -64,6 +70,73 @@ public class RoomProperties : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
-	}
+
+        //Update how many doors are in this room.
+        Ray northRay = new Ray(transform.position, transform.forward);
+        RaycastHit northRayInfo = new RaycastHit();
+
+        Ray eastRay = new Ray(transform.position, transform.right);
+        RaycastHit eastRayInfo = new RaycastHit();
+
+        Ray southRay = new Ray(transform.position, -transform.forward);
+        RaycastHit southRayInfo = new RaycastHit();
+
+        Ray westRay = new Ray(transform.position, -transform.right);
+        RaycastHit westRayInfo = new RaycastHit();
+
+        float checkRange = 10f;
+
+        if(Physics.Raycast(northRay, out northRayInfo, checkRange))
+        {
+            if(northRayInfo.collider.tag == "Door")
+            {
+                doorLocations[(int)(DoorLocations.North)] = true;
+            }
+            else if (northRayInfo.collider.tag == "Wall")
+            {
+                doorLocations[(int)(DoorLocations.North)] = false;
+            }
+        }
+
+        if (Physics.Raycast(eastRay, out eastRayInfo, checkRange))
+        {
+            if (eastRayInfo.collider.tag == "Door")
+            {
+                doorLocations[(int)(DoorLocations.East)] = true;
+            }
+            else if (eastRayInfo.collider.tag == "Wall")
+            {
+                doorLocations[(int)(DoorLocations.East)] = false;
+            }
+        }
+
+        if (Physics.Raycast(southRay, out southRayInfo, checkRange))
+        {
+            if (southRayInfo.collider.tag == "Door")
+            {
+                doorLocations[(int)(DoorLocations.South)] = true;
+            }
+            else if (southRayInfo.collider.tag == "Wall")
+            {
+                doorLocations[(int)(DoorLocations.South)] = false;
+            }
+        }
+
+        if (Physics.Raycast(westRay, out westRayInfo, checkRange))
+        {
+            if (westRayInfo.collider.tag == "Door")
+            {
+                doorLocations[(int)(DoorLocations.West)] = true;
+            }
+            else if (westRayInfo.collider.tag == "Wall")
+            {
+                doorLocations[(int)(DoorLocations.West)] = false;
+            }
+        }
+
+
+
+
+    }
+
 }
