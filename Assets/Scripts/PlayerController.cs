@@ -7,11 +7,11 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     [SerializeField] Transform[] players;
-<<<<<<< HEAD
+
     public float speed = 50;
-=======
-    [SerializeField] float speed = 2000f;
->>>>>>> d21847ad66d1565873b6cd826e4b5c60268ec216
+
+    //[SerializeField] float speed = 2000f;
+
 
     List<string> listOfJoysticks = new List<string>();
     string[] joystickArray;
