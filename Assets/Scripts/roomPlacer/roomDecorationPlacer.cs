@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class roomDecorationPlacer : MonoBehaviour {
 
@@ -8,9 +9,9 @@ public class roomDecorationPlacer : MonoBehaviour {
     int counter = 0;
     [SerializeField] Transform blueprint;
     [SerializeField] Transform chairPrefab;
-    [SerializeField] Transform couchPrefab; 
+    [SerializeField] Transform couchPrefab;     
     [SerializeField] Transform deskPrefab;
-
+ 
     // Use this for initialization
     void Start()
     {
@@ -24,6 +25,7 @@ public class roomDecorationPlacer : MonoBehaviour {
                 //each piece of furniture has a 5% chance of being placed
                 if (randomNumber > 0.85f && randomNumber < .9f)   
                 {
+           
                     Instantiate(chairPrefab, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
                     counter++;
                 }
@@ -43,12 +45,14 @@ public class roomDecorationPlacer : MonoBehaviour {
                 if (counter > 0) //this ensures that only a max of around 4-5 objects spawn. 0 objects spawned is also possible
                 {
                     Destroy(gameObject);
-                    break;
+                    
                 }
 
             }
         }
         Destroy ( gameObject ); //destroy the placer after job is done
+
+
     }
     // Update is called once per frame
     void Update () {
