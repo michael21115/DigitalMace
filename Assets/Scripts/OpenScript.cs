@@ -46,8 +46,6 @@ public class OpenScript : MonoBehaviour {
 			else if (open == false){
 				open = !open;
 			}
-		} else {
-			return;
 		}
 	}
 }

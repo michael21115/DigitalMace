@@ -10,17 +10,15 @@ public class roomDecorationPlacer : MonoBehaviour {
     [SerializeField] Transform chairPrefab;
     [SerializeField] Transform couchPrefab;     
     [SerializeField] Transform deskPrefab;
-<<<<<<< HEAD:Assets/Scripts/roomDecorationPlacer.cs
+	//[SerializeField] Transform spikePrefab;
+
 
 	void SpawnObject(Object furniture) {
 		Transform temp = (Transform)Instantiate(furniture, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
 		temp.transform.parent = transform.parent;
 		counter++;
 	}
-
-=======
- 
->>>>>>> bba82398bfd3fa6b2dfb2762d25bf4a7cd259c93:Assets/Scripts/roomPlacer/roomDecorationPlacer.cs
+		
     // Use this for initialization
     void Start()
     {
@@ -32,15 +30,12 @@ public class roomDecorationPlacer : MonoBehaviour {
                 float randomNumber = Random.Range(0.0f, 1.0f);
 
                 //each piece of furniture has a 5% chance of being placed
+//				if (randomNumber > 0.7f && randomNumber < .85f){
+//					SpawnObject(spikePrefab);
+//				}
                 if (randomNumber > 0.85f && randomNumber < .9f)   
                 {
-<<<<<<< HEAD:Assets/Scripts/roomDecorationPlacer.cs
 					SpawnObject(chairPrefab);
-=======
-           
-                    Instantiate(chairPrefab, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
-                    counter++;
->>>>>>> bba82398bfd3fa6b2dfb2762d25bf4a7cd259c93:Assets/Scripts/roomPlacer/roomDecorationPlacer.cs
                 }
                 if (randomNumber > 0.9f && randomNumber < 0.95f)
                 {
