@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 //using XInputDotNetPure;
@@ -6,7 +7,11 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     [SerializeField] Transform[] players;
+<<<<<<< HEAD
     public float speed = 50;
+=======
+    [SerializeField] float speed = 2000f;
+>>>>>>> d21847ad66d1565873b6cd826e4b5c60268ec216
 
     List<string> listOfJoysticks = new List<string>();
     string[] joystickArray;
@@ -54,7 +59,7 @@ public class PlayerController : MonoBehaviour {
             Vector3 movement = new Vector3(horizontal, 0, vertical) * speed;
 
             //players[i].position += movement * Time.deltaTime;
-            players[i].GetComponent<Rigidbody>().velocity = movement + Physics.gravity;
+            players[i].GetComponent<Rigidbody>().velocity = (movement + Physics.gravity) * Time.deltaTime;
 
             if (movement != Vector3.zero)
             {
@@ -73,10 +78,12 @@ public class PlayerController : MonoBehaviour {
 
                     if (players[i].GetComponent<ObjectInteraction>().throwItem)
                     {
-                        Rigidbody objectRB = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0).GetComponent<Rigidbody>();
+                        Transform throwObject = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+                        Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
 
                         // throw the game object in your off hand
                         players[i].GetComponent<ObjectInteraction>().throwItem = false;
+                        throwObject.tag = "Projectile";
                         objectRB.constraints = RigidbodyConstraints.None;
                         objectRB.constraints = RigidbodyConstraints.FreezeRotation;
                         objectRB.AddForce(players[i].forward * players[i].GetComponent<ObjectInteraction>().throwForce * 1000f);
@@ -95,6 +102,8 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetButtonDown("Joy " + i + " Y"))
                 {
                     Debug.Log("Player " + i + 1 + " pressed 'Y'");
+
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
             // Input for other (PS4) Controllers
@@ -110,10 +119,12 @@ public class PlayerController : MonoBehaviour {
 
                     if (players[i].GetComponent<ObjectInteraction>().throwItem)
                     {
-                        Rigidbody objectRB = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0).GetComponent<Rigidbody>();
+                        Transform throwObject = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+                        Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
 
                         // throw the game object in your off hand
                         players[i].GetComponent<ObjectInteraction>().throwItem = false;
+                        throwObject.tag = "Projectile";
                         objectRB.constraints = RigidbodyConstraints.None;
                         objectRB.constraints = RigidbodyConstraints.FreezeRotation;
                         objectRB.AddForce(players[i].forward * players[i].GetComponent<ObjectInteraction>().throwForce * 1000f);
@@ -128,6 +139,8 @@ public class PlayerController : MonoBehaviour {
                 if (Input.GetButtonDown("Joy " + i + " Y"))
                 {
                     Debug.Log("Player " + i + 1 + " pressed 'triangle'");
+
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
         }

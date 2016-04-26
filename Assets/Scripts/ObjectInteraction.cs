@@ -15,19 +15,32 @@ public class ObjectInteraction : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-	}
+        if (GetComponent<ObjectInteraction>().hands[0].childCount == 0)
+        {
+            throwItem = false;
+        }
+        if (GetComponent<ObjectInteraction>().hands[1].childCount == 0)
+        {
+            keyItem = false;
+        }
+    }
 
     void OnCollisionEnter(Collision other)
     {
         Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
 
+        if (other.collider.tag == "Projectile")
+        {
+            GetComponent<Rigidbody>().AddForce((Vector3.up * 500f));
+        }
+
         if (other.collider.tag == "Grabby Thing" && !throwItem)
         {
-            otherRB.constraints = RigidbodyConstraints.FreezeAll;
-            other.transform.position = hands[0].position;
-            other.transform.SetParent(hands[0]);
-            otherRB.useGravity = false;
-            throwItem = true;
+                otherRB.constraints = RigidbodyConstraints.FreezeAll;
+                other.transform.position = hands[0].position;
+                other.transform.SetParent(hands[0]);
+                otherRB.useGravity = false;
+                throwItem = true;
         }
         else if (other.collider.tag == "Key Item" && !keyItem)
         {
