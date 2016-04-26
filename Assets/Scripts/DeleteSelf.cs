@@ -24,7 +24,7 @@ public class DeleteSelf : MonoBehaviour {
         Ray rightCheckRay = new Ray(transform.position, transform.right);
         RaycastHit rightRayInfo = new RaycastHit();
         
-        if(Physics.Raycast(leftCheckRay, out leftRayInfo, 2f))
+        if(Physics.Raycast(leftCheckRay, out leftRayInfo, 3f))
         {
             if(leftRayInfo.collider.tag == "Wall")
             {
@@ -36,7 +36,7 @@ public class DeleteSelf : MonoBehaviour {
                 temp.position += transform.right * -0.5f;
                 temp.transform.parent = transform.parent;
             }
-            if(leftRayInfo.collider.tag == "Outer")
+			if(leftRayInfo.collider.tag == "Outer")
             {
                 Transform temp = Instantiate(wallPrefab, transform.parent.position, transform.parent.rotation) as Transform;
                 temp.transform.parent = transform.parent.parent;
@@ -45,9 +45,11 @@ public class DeleteSelf : MonoBehaviour {
             }
         }
 
-        
-        if(Physics.Raycast(rightCheckRay, out rightRayInfo, 2f))
+		//Debug.DrawRay(transform.position, transform.right);       
+
+        if(Physics.Raycast(rightCheckRay, out rightRayInfo, 3f))
         {
+
             if (rightRayInfo.collider.tag == "Wall")
             {
                 Destroy(rightRayInfo.collider.gameObject);
@@ -58,7 +60,11 @@ public class DeleteSelf : MonoBehaviour {
                 temp.position += transform.right * 0.5f;
                 temp.transform.parent = transform.parent;
             }
-            /*
+			else if(rightRayInfo.collider.tag == "Untagged"){
+				Debug.DrawRay(transform.position, transform.right, Color.red);    
+//				Debug.Log(rightRayInfo.collider.tag);
+			}
+            
             if (rightRayInfo.collider.tag == "Outer")
             {
                 Transform temp = Instantiate(wallPrefab, transform.parent.position, transform.parent.rotation) as Transform;
@@ -66,11 +72,11 @@ public class DeleteSelf : MonoBehaviour {
                 Debug.Log("OUTER WALL DETECTED");
                 Destroy(transform.parent);
                 Destroy(gameObject);
-            }*/
+            }
         }
 
         timer += Time.deltaTime;
-        if (timer > 0.2f)
+        if (timer > 0.2f) 
             Destroy(this);
 	}
 

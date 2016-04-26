@@ -14,6 +14,7 @@ public class SpikeScript : MonoBehaviour {
 
     void Start()
     {
+        pcTransform = GameObject.Find("Controller_GameObject").transform;
         playerController = pcTransform.GetComponent<PlayerController>();
         defaultSpeed = playerController.speed;
     }
