@@ -10,7 +10,7 @@ public class roomDecorationPlacer : MonoBehaviour {
     [SerializeField] Transform chairPrefab;
     [SerializeField] Transform couchPrefab;     
     [SerializeField] Transform deskPrefab;
-	//[SerializeField] Transform spikePrefab;
+	[SerializeField] Transform spikePrefab;
 
 
 	void SpawnObject(Object furniture) {
@@ -30,9 +30,9 @@ public class roomDecorationPlacer : MonoBehaviour {
                 float randomNumber = Random.Range(0.0f, 1.0f);
 
                 //each piece of furniture has a 5% chance of being placed
-//				if (randomNumber > 0.7f && randomNumber < .85f){
-//					SpawnObject(spikePrefab);
-//				}
+				if (randomNumber > 0.7f && randomNumber < .85f){
+					SpawnObject(spikePrefab);
+				}
                 if (randomNumber > 0.85f && randomNumber < .9f)   
                 {
 					SpawnObject(chairPrefab);
