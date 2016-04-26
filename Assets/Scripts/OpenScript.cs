@@ -40,7 +40,12 @@ public class OpenScript : MonoBehaviour {
 
 	void OnTriggerEnter (Collider collider){
 		if (collider.gameObject.tag == "Player"){
-			open = !open;
+			if (open == true){
+				open = !open;
+			}
+			else if (open == false){
+				open = !open;
+			}
 		} else {
 			return;
 		}
