@@ -15,6 +15,7 @@ public class RoomProperties : MonoBehaviour {
     Transform furniturePlacerPrefab;
    
     public bool[] doorLocations;
+    public bool[] wallDestruction;
     public bool[] doorsChecked;
     public string type;
     public bool accessible = false;
@@ -43,11 +44,23 @@ public class RoomProperties : MonoBehaviour {
             //Add one door then a second.
             while(numberOfDoors < 2)
             {
-                int randomNumber = (int)(Random.value * 3.99f);
-                if(!doorLocations[randomNumber])
+                int randomNumber = (int)(Random.value * 4.99f);
+                if (randomNumber >= 4)
                 {
-                    doorLocations[randomNumber] = true;
-                    numberOfDoors++;
+                    randomNumber = (int)(Random.value * 3.99f);
+                    if (!wallDestruction[randomNumber])
+                    {
+                        wallDestruction[randomNumber] = true;
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
+                }
+                else if (randomNumber <= 3) {    
+                    if (!doorLocations[randomNumber])
+                    {
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
                 }
             }
         }
@@ -57,11 +70,24 @@ public class RoomProperties : MonoBehaviour {
             //Add one door
             while (numberOfDoors < 2)
             {
-                int randomNumber = (int)(Random.value * 3.99f);
-                if (!doorLocations[randomNumber])
+                int randomNumber = (int)(Random.value * 4.99f);
+                if (randomNumber >= 4)
                 {
-                    doorLocations[randomNumber] = true;
-                    numberOfDoors++;
+                    randomNumber = (int)(Random.value * 3.99f);
+                    if (!wallDestruction[randomNumber])
+                    {
+                        wallDestruction[randomNumber] = true;
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
+                }
+                else if (randomNumber <= 3)
+                {    
+                    if (!doorLocations[randomNumber])
+                    {
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
                 }
             }
         }
