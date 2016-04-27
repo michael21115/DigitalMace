@@ -12,16 +12,19 @@ public class roomDecorationPlacer : MonoBehaviour {
     private float uniformChance;
     private float currentChance;
 
+    private Transform defaultParent;
+
 
 	void SpawnObject(Object furniture) {
 		Transform temp = (Transform)Instantiate(furniture, pos, Quaternion.Euler(0f, Random.Range(0f, 360f), 0f));
-		temp.transform.parent = transform.parent;
+        temp.transform.parent = defaultParent;
 		counter++;
 	}
 
     // Use this for initialization
     void Start()
     {
+        defaultParent = GameObject.Find("Furniture").transform;
         uniformChance = 0.15f / furniture.Length;
         currentChance = uniformChance;
         for (int x = 0; x < 3; x++) //this creates a 9x9 square area where objects can spawn

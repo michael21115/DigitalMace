@@ -11,12 +11,16 @@ public class RoomProperties : MonoBehaviour {
         2 : South
         3 : West
     */
+    [SerializeField]
+    Transform furniturePlacerPrefab;
    
     public bool[] doorLocations;
     public bool[] doorsChecked;
     public string type;
     public bool accessible = false;
+    public bool furniture = true;
 
+    float timer = 0;
     int numberOfDoors = 0;
 
     [SerializeField]
@@ -134,7 +138,18 @@ public class RoomProperties : MonoBehaviour {
             }
         }
 
-
+        //When timer reaches a certain point place furniture.
+        if (!furniture)
+        {
+            if (timer < 1f)
+            {
+                timer += Time.deltaTime;
+                if (timer > 1f)
+                {
+                    Instantiate(furniturePlacerPrefab, transform.position, transform.rotation);
+                }
+            }
+        }
 
 
     }

@@ -40,7 +40,7 @@ public class OpenScript : MonoBehaviour {
 //    }
 
 	void OnTriggerEnter (Collider collider){
-        Debug.Log(collider.tag);
+        //Debug.Log(collider.tag);
         if (collider.tag == "Player")
         {
 
