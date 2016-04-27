@@ -30,7 +30,7 @@ public class AccessChecker : MonoBehaviour {
     void UpdateAccess(Transform roomTransform)
     {
         RoomProperties room = (RoomProperties)(roomTransform.GetComponent<RoomProperties>());
-        Debug.Log(room.name);
+        //Debug.Log(room.name);
         for (int i = 0; i < 4; i++)
         {
             //If this door is open, then move forward.
@@ -52,7 +52,7 @@ public class AccessChecker : MonoBehaviour {
                 //Get the opposite index of the door
                 int opposite = i + 2;
                 if (opposite == 4) opposite = 0; else if (opposite == 5) opposite = 1;
-                Debug.Log(room.transform.name + " " + (DoorLocations)(i) + " to " + newRoom.name);
+                //Debug.Log(room.transform.name + " " + (DoorLocations)(i) + " to " + newRoom.name);
                 newProperties.doorsChecked[opposite] = true;
                 if (!newProperties.accessible)
                     totalAccess.totalAccess++;
