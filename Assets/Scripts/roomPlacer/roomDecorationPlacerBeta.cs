@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class roomDecorationPlacer : MonoBehaviour {
+public class roomDecorationPlacerBeta : MonoBehaviour {
 
     
     Vector3 pos;
