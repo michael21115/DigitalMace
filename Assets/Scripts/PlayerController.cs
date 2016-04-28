@@ -6,140 +6,175 @@ using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour {
 
-    [SerializeField] Transform[] players;
-    public float speed = 50;
+    [SerializeField] float waitTime = 10f;
+    [SerializeField] float currTime = 0f;
 
-    List<string> listOfJoysticks = new List<string>();
-    string[] joystickArray;
+    public int playerNo;
+    public float speed = 2000f;
+    public float dashSpeed = 5f;
+    public float dashBoost = 1000f;
+    bool canDash = true;
+    bool hasDashed = false;
 
 	// Use this for initialization
 	void Update ()
     {
-        joystickArray = new string[] { "NULL", "NULL", "NULL", "NULL" };
-
-        // This doesn't work but, the idea is to track the controllers and slot numbers
-        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+        if (hasDashed)
         {
-            if (Input.GetJoystickNames()[i] != null)
+            currTime += Time.deltaTime;
+            if (currTime >= waitTime)
             {
-                joystickArray[i] = Input.GetJoystickNames()[i];
-
-                listOfJoysticks.Add(joystickArray[i]);
+                hasDashed = false;
+                canDash = true;
+                currTime = 0f;
             }
-            else if (Input.GetJoystickNames()[i] == null)
-            {
-                joystickArray[i] = "NULL";
-
-                listOfJoysticks.RemoveAt(i);
             }
-            //Debug.Log("joystick_" + (i + 1) + " = " + joystickArray[i]);
-
-            //Debug.Log(listOfJoysticks[i] + " added to list at position " + i);
-        }
 
         PlayerInput();
-
-
     }
     /// <summary>
     /// Checks for and runs player input
     /// </summary>
-    void PlayerInput ()
+    void PlayerInput()
     {
         // For each joystick attached, control that coresponding player
         // Maybe we will have a player select screen?
-        for (int i = 0; i < Input.GetJoystickNames().Length; i++)
-        {
-            float horizontal = Input.GetAxis("Joy " + i + " Horizontal");
-            float vertical = Input.GetAxis("Joy " + i + " Vertical");
+        float horizontal = Input.GetAxis("Joy " + playerNo + " Horizontal");
+        float vertical = Input.GetAxis("Joy " + playerNo + " Vertical");
             Vector3 movement = new Vector3(horizontal, 0, vertical) * speed;
 
             //players[i].position += movement * Time.deltaTime;
-            players[i].GetComponent<Rigidbody>().velocity = (movement + Physics.gravity) * Time.deltaTime;
+
+        Ray groundCheck = new Ray(transform.position, -transform.up);
+        RaycastHit groundCheckInfo = new RaycastHit();
+
+        if (Physics.Raycast(groundCheck, out groundCheckInfo, (transform.localScale.y * 0.5f * 1.05f)))
+        {
+            GetComponent<Rigidbody>().velocity = (movement + Physics.gravity) * Time.deltaTime;
+        }
+        else
+        {
+            GetComponent<Rigidbody>().velocity += Physics.gravity * Time.deltaTime;
+        }
 
             if (movement != Vector3.zero)
             {
                 //snaps to movement direction... a little jumpy
-                players[i].forward = Vector3.Normalize(movement);
+           transform.forward = Vector3.Normalize(movement);
             }
 
-            //Add player buttons and data loss capture
+        //Add controller face buttons and data loss capture
 
+        if (playerNo < Input.GetJoystickNames().Length)
+        {
             // Input for xBox Controllers
-            if (Input.GetJoystickNames()[i].Contains("Xbox"))
+            if (Input.GetJoystickNames()[playerNo].Contains("Xbox"))
             {
-                if (Input.GetButtonDown("Joy " + i + " A"))
-                {
-                    Debug.Log("Player " + i + 1 + " pressed 'A'");
+                Xbox_Controls();
+            }
+            // Input for other (PS4) Controllers
+            else if (Input.GetJoystickNames()[playerNo].Contains("Wireless"))
+            {
+                PS4_WirelessControls();
+            }
+        }
+    }
 
-                    if (players[i].GetComponent<ObjectInteraction>().throwItem)
+    void Xbox_Controls ()
+            {
+        if (Input.GetButtonDown("Joy " + playerNo + " A"))
+                {
+            Debug.Log("Player " + playerNo + 1 + " pressed 'A'");
+
+            if (GetComponent<ObjectInteraction>().throwItem)
                     {
-                        Transform throwObject = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+                Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
                         Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
 
                         // throw the game object in your off hand
-                        objectRB.mass = 1;
                         players[i].GetComponent<ObjectInteraction>().throwItem = false;
                         throwObject.tag = "Projectile";
                         objectRB.constraints = RigidbodyConstraints.None;
                         objectRB.constraints = RigidbodyConstraints.FreezeRotation;
-                        objectRB.AddForce(players[i].forward * players[i].GetComponent<ObjectInteraction>().throwForce * 1000f);
+                objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
+                objectRB.AddForce(transform.forward * GetComponent<ObjectInteraction>().throwForce * 1000f);
                         objectRB.useGravity = true;
-                        players[i].GetComponent<ObjectInteraction>().hands[0].DetachChildren();
+                GetComponent<ObjectInteraction>().hands[0].DetachChildren();
                     }
                 }
-                if (Input.GetButtonDown("Joy " + i + " B"))
+        if (Input.GetButtonDown("Joy " + playerNo + " B"))
                 {
-                    Debug.Log("Player " + i + 1 + " pressed 'B'");
+            Debug.Log("Player " + playerNo + 1 + " pressed 'B'");
                 }
-                if (Input.GetButtonDown("Joy " + i + " X"))
+        if (Input.GetButtonDown("Joy " + playerNo + " X"))
                 {
-                    Debug.Log("Player " + i + 1 + " pressed 'X'");
+            Debug.Log("Player " + playerNo + 1 + " pressed 'X'");
+
+            if (canDash && !hasDashed)
+            {
+                canDash = false;
+                hasDashed = true;
+                GetComponent<Rigidbody>().AddForce((Vector3.up * dashBoost) + (transform.forward * dashSpeed * dashBoost));
+            }
+
+            if (GetComponent<ObjectInteraction>().throwItem)
+            {
+                Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+                Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
+
+                // drop the game object in your off hand
+                GetComponent<ObjectInteraction>().throwItem = false;
+                objectRB.constraints = RigidbodyConstraints.None;
+                objectRB.constraints = RigidbodyConstraints.FreezeRotation;
+                objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
+                objectRB.AddForce(transform.up * 500);
+                objectRB.useGravity = true;
+                GetComponent<ObjectInteraction>().hands[0].DetachChildren();
+            }
                 }
-                if (Input.GetButtonDown("Joy " + i + " Y"))
+        if (Input.GetButtonDown("Joy " + playerNo + " Y"))
                 {
-                    Debug.Log("Player " + i + 1 + " pressed 'Y'");
+            Debug.Log("Player " + playerNo + 1 + " pressed 'Y'");
 
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
-            // Input for other (PS4) Controllers
-            else if (Input.GetJoystickNames()[i].Contains("Wireless"))
-            {
-                if (Input.GetButtonDown("Joy " + i + " A"))
-                {
-                    Debug.Log("Player " + i + 1 + " pressed 'square'");
-                }
-                if (Input.GetButtonDown("Joy " + i + " B"))
-                {
-                    Debug.Log("Player " + i + 1 + " pressed 'cross'");
 
-                    if (players[i].GetComponent<ObjectInteraction>().throwItem)
+    void PS4_WirelessControls ()
+            {
+        if (Input.GetButtonDown("Joy " + playerNo + " A"))
+                {
+            Debug.Log("Player " + playerNo + 1 + " pressed 'square'");
+                }
+        if (Input.GetButtonDown("Joy " + playerNo + " B"))
+                {
+            Debug.Log("Player " + playerNo + 1 + " pressed 'cross'");
+
+            if (GetComponent<ObjectInteraction>().throwItem)
                     {
-                        Transform throwObject = players[i].GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+                Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
                         Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
 
                         // throw the game object in your off hand
-                        players[i].GetComponent<ObjectInteraction>().throwItem = false;
+                GetComponent<ObjectInteraction>().throwItem = false;
                         throwObject.tag = "Projectile";
                         objectRB.constraints = RigidbodyConstraints.None;
                         objectRB.constraints = RigidbodyConstraints.FreezeRotation;
-                        objectRB.AddForce(players[i].forward * players[i].GetComponent<ObjectInteraction>().throwForce * 1000f);
+                objectRB.detectCollisions = true;
+                objectRB.AddForce(transform.forward * GetComponent<ObjectInteraction>().throwForce * 1000f);
                         objectRB.useGravity = true;
-                        players[i].GetComponent<ObjectInteraction>().hands[0].DetachChildren();
+                GetComponent<ObjectInteraction>().hands[0].DetachChildren();
                     }
                 }
-                if (Input.GetButtonDown("Joy " + i + " X"))
+        if (Input.GetButtonDown("Joy " + playerNo + " X"))
                 {
-                    Debug.Log("Player " + i + 1 + " pressed 'circle'");
+            Debug.Log("Player " + playerNo + 1 + " pressed 'circle'");
                 }
-                if (Input.GetButtonDown("Joy " + i + " Y"))
+        if (Input.GetButtonDown("Joy " + playerNo + " Y"))
                 {
-                    Debug.Log("Player " + i + 1 + " pressed 'triangle'");
+            Debug.Log("Player " + playerNo + 1 + " pressed 'triangle'");
 
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
                 }
             }
         }
-    }
-}
