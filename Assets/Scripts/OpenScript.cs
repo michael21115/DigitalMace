@@ -50,12 +50,8 @@ public class OpenScript : MonoBehaviour {
 //        }
 //    }
 
-<<<<<<< HEAD
-	void OnTriggerEnter (Collider collider){
 
-=======
 	void OnTriggerStay (Collider collider){
->>>>>>> 21ca1a40b70a0cf9fa1de96cd8f4a4ffb7059f35
         //Debug.Log(collider.tag);
         if (collider.tag == "Player")
         {
