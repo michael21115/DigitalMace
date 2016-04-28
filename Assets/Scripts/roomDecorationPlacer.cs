@@ -8,6 +8,7 @@ public class roomDecorationPlacer : MonoBehaviour {
 
     [SerializeField] Transform[] furniture;
     [SerializeField] Transform blueprint;
+    [SerializeField] float totalChance;
 
     private float uniformChance;
     private float currentChance;
@@ -25,7 +26,8 @@ public class roomDecorationPlacer : MonoBehaviour {
     void Start()
     {
         defaultParent = GameObject.Find("Furniture").transform;
-        uniformChance = 0.15f / furniture.Length;
+        uniformChance = totalChance / furniture.Length;
+        //Debug.Log(uniformChance);
         currentChance = uniformChance;
         for (int x = 0; x < 3; x++) //this creates a 9x9 square area where objects can spawn
         {
@@ -33,10 +35,11 @@ public class roomDecorationPlacer : MonoBehaviour {
             {
                 pos = new Vector3(x * 2, 0, z * -2) + blueprint.transform.position;  
                 float randomNumber = Random.Range(0.0f, 1.0f);
-                
+                currentChance = uniformChance;
                 //New Loop to generate furniture. Allows for more furniture to be added.
                 foreach(Transform obj in furniture)
                 {
+                    Debug.Log(currentChance);
                     if (randomNumber < currentChance)
                     {
                         currentChance = uniformChance;
