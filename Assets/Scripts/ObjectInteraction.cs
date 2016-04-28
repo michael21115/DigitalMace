@@ -35,6 +35,7 @@ public class ObjectInteraction : MonoBehaviour {
 
         if (other.collider.tag == "Projectile")
         {
+            otherRB.mass = 1;
             GetComponent<Rigidbody>().AddForce((Vector3.up * 500f));
 
             if (keyItem)
