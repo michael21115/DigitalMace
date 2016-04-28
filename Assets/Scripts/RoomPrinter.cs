@@ -12,6 +12,9 @@ public class RoomPrinter : MonoBehaviour {
     [SerializeField]
     Transform wallDestroyer;
 
+    [SerializeField]
+    Transform cornerColumnPrefab;
+
 	// Use this for initialization
 	void Start () {
         transform.localPosition += new Vector3(-5, 0, -5);
@@ -22,6 +25,12 @@ public class RoomPrinter : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         
+    }
+
+    public void spawnColumn()
+    {
+        Transform temp = Instantiate(cornerColumnPrefab, transform.position, transform.rotation) as Transform;
+        temp.transform.parent = transform.parent;
     }
 
     //Spawns a wall that length.
@@ -77,6 +86,7 @@ public class RoomPrinter : MonoBehaviour {
             spawnWall(length);
         }
         transform.eulerAngles += new Vector3(0, 90, 0);
+        spawnColumn();
 
         //North Side
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[0])
@@ -93,7 +103,7 @@ public class RoomPrinter : MonoBehaviour {
             spawnWall(length);
         }
         transform.eulerAngles += new Vector3(0, 90, 0);
-
+        spawnColumn();
         //East Side
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[1])
         {
@@ -109,7 +119,7 @@ public class RoomPrinter : MonoBehaviour {
             spawnWall(length);
         }
         transform.eulerAngles += new Vector3(0, 90, 0);
-
+        spawnColumn();
         //South Side
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[2])
         {
@@ -125,5 +135,6 @@ public class RoomPrinter : MonoBehaviour {
             spawnWall(length);
         }
         transform.eulerAngles += new Vector3(0, 90, 0);
+        spawnColumn();
     }
 }

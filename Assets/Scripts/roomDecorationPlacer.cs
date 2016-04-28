@@ -9,10 +9,14 @@ public class roomDecorationPlacer : MonoBehaviour {
 
     [SerializeField] Transform[] furniture;
     [SerializeField] Transform blueprint;
+<<<<<<< HEAD
 //  [SerializeField] Transform chairPrefab;
 //  [SerializeField] Transform couchPrefab;     
 //  [SerializeField] Transform deskPrefab;
 //	[SerializeField] Transform spikePrefab;
+=======
+    [SerializeField] float totalChance;
+>>>>>>> 21ca1a40b70a0cf9fa1de96cd8f4a4ffb7059f35
 
     private float uniformChance;
     private float currentChance;
@@ -30,7 +34,8 @@ public class roomDecorationPlacer : MonoBehaviour {
     void Start()
     {
         defaultParent = GameObject.Find("Furniture").transform;
-        uniformChance = 0.15f / furniture.Length;
+        uniformChance = totalChance / furniture.Length;
+        //Debug.Log(uniformChance);
         currentChance = uniformChance;
         for (int x = 0; x < 3; x++) //this creates a 9x9 square area where objects can spawn
         {
@@ -38,6 +43,7 @@ public class roomDecorationPlacer : MonoBehaviour {
             {
                 pos = new Vector3(x * 2, 0, z * -2) + blueprint.transform.position;  
                 float randomNumber = Random.Range(0.0f, 1.0f);
+<<<<<<< HEAD
 
 //                //each piece of furniture has a 5% chance of being placed
 //				if (randomNumber > 0.7f && randomNumber < .85f){
@@ -45,9 +51,13 @@ public class roomDecorationPlacer : MonoBehaviour {
 //				}
 
                 if (randomNumber > 0.85f && randomNumber < .9f)           
+=======
+                currentChance = uniformChance;
+>>>>>>> 21ca1a40b70a0cf9fa1de96cd8f4a4ffb7059f35
                 //New Loop to generate furniture. Allows for more furniture to be added.
                 foreach(Transform obj in furniture)
                 {
+                    //Debug.Log(currentChance);
                     if (randomNumber < currentChance)
                     {
                         currentChance = uniformChance;
