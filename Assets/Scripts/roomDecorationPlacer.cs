@@ -9,18 +9,15 @@ public class roomDecorationPlacer : MonoBehaviour {
 
     [SerializeField] Transform[] furniture;
     [SerializeField] Transform blueprint;
-<<<<<<< HEAD
-    [SerializeField] Transform chairPrefab;
-    [SerializeField] Transform couchPrefab;     
-    [SerializeField] Transform deskPrefab;
-	[SerializeField] Transform spikePrefab;
-=======
+//  [SerializeField] Transform chairPrefab;
+//  [SerializeField] Transform couchPrefab;     
+//  [SerializeField] Transform deskPrefab;
+//	[SerializeField] Transform spikePrefab;
 
     private float uniformChance;
     private float currentChance;
 
     private Transform defaultParent;
->>>>>>> 7c9533db2554467e1ff4390958f99159cc8ebe16
 
 
 	void SpawnObject(Object furniture) {
@@ -41,18 +38,15 @@ public class roomDecorationPlacer : MonoBehaviour {
             {
                 pos = new Vector3(x * 2, 0, z * -2) + blueprint.transform.position;  
                 float randomNumber = Random.Range(0.0f, 1.0f);
-<<<<<<< HEAD
 
-                //each piece of furniture has a 5% chance of being placed
-				if (randomNumber > 0.7f && randomNumber < .85f){
-					SpawnObject(spikePrefab);
-				}
-                if (randomNumber > 0.85f && randomNumber < .9f)   
-=======
-                
+//                //each piece of furniture has a 5% chance of being placed
+//				if (randomNumber > 0.7f && randomNumber < .85f){
+//					SpawnObject(spikePrefab);
+//				}
+
+                if (randomNumber > 0.85f && randomNumber < .9f)           
                 //New Loop to generate furniture. Allows for more furniture to be added.
                 foreach(Transform obj in furniture)
->>>>>>> 7c9533db2554467e1ff4390958f99159cc8ebe16
                 {
                     if (randomNumber < currentChance)
                     {

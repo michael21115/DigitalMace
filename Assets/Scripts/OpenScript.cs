@@ -40,16 +40,7 @@ public class OpenScript : MonoBehaviour {
 //    }
 
 	void OnTriggerEnter (Collider collider){
-<<<<<<< HEAD
-		if (collider.gameObject.tag == "Player"){
-			if (open == true){
-				open = !open;
-			}
-			else if (open == false){
-				open = !open;
-			}
-		}
-=======
+
         //Debug.Log(collider.tag);
         if (collider.tag == "Player")
         {
@@ -65,6 +56,5 @@ public class OpenScript : MonoBehaviour {
                 open = !open;
             }
         }
->>>>>>> 7c9533db2554467e1ff4390958f99159cc8ebe16
 	}
 }
