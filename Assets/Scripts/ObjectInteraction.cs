@@ -31,12 +31,14 @@ public class ObjectInteraction : MonoBehaviour {
 
         if (other.collider.tag == "Projectile")
         {
+            otherRB.mass = 1;
             GetComponent<Rigidbody>().AddForce((Vector3.up * 500f));
         }
 
         if (other.collider.tag == "Grabby Thing" && !throwItem)
         {
                 otherRB.constraints = RigidbodyConstraints.FreezeAll;
+                otherRB.mass = 0;
                 other.transform.position = hands[0].position;
                 other.transform.SetParent(hands[0]);
                 otherRB.useGravity = false;

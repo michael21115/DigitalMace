@@ -15,9 +15,10 @@ public class OpenScript : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
         if (open)
+        {
             transform.position = Vector3.Lerp(transform.position, openPosition, 0.15f);
+        }
 
         if (!open)
             transform.position = Vector3.Lerp(transform.position, closedPosition, 0.15f);
@@ -39,6 +40,7 @@ public class OpenScript : MonoBehaviour {
 //    }
 
 	void OnTriggerEnter (Collider collider){
+<<<<<<< HEAD
 		if (collider.gameObject.tag == "Player"){
 			if (open == true){
 				open = !open;
@@ -47,5 +49,22 @@ public class OpenScript : MonoBehaviour {
 				open = !open;
 			}
 		}
+=======
+        //Debug.Log(collider.tag);
+        if (collider.tag == "Player")
+        {
+
+            if (open == true)
+            {
+                Debug.Log("Opening the dank door");
+                //open = true;
+            }
+            else if (open == false)
+            {
+                //Debug.Log("Closing");
+                open = !open;
+            }
+        }
+>>>>>>> 7c9533db2554467e1ff4390958f99159cc8ebe16
 	}
 }

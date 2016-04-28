@@ -30,7 +30,7 @@ public class AccessChecker : MonoBehaviour {
     void UpdateAccess(Transform roomTransform)
     {
         RoomProperties room = (RoomProperties)(roomTransform.GetComponent<RoomProperties>());
-
+        //Debug.Log(room.name);
         for (int i = 0; i < 4; i++)
         {
             //If this door is open, then move forward.

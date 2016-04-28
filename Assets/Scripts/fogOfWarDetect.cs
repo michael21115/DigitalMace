@@ -36,10 +36,10 @@ public class fogOfWarDetect : MonoBehaviour {
 
 	// FOG OF WAR ACTIVATION
 	// very simple player detection
-	void OnTriggerEnter (Collider collider){
+	void OnTriggerStay (Collider collider){
 		// if an object with the player tag enters a room
 		if (collider.tag == "Player"){
-			Debug.Log("Yes, it's a player");
+			//Debug.Log("Yes, it's a player");
 			// turn on the lights
 			roomLight.SetActive(true);
 		}

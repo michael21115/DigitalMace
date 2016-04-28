@@ -7,7 +7,11 @@ using System.Collections.Generic;
 public class PlayerController : MonoBehaviour {
 
     [SerializeField] Transform[] players;
+<<<<<<< HEAD
     public float speed = 2000f;
+=======
+    public float speed = 50;
+>>>>>>> 7c9533db2554467e1ff4390958f99159cc8ebe16
 
     List<string> listOfJoysticks = new List<string>();
     string[] joystickArray;
@@ -78,6 +82,7 @@ public class PlayerController : MonoBehaviour {
                         Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
 
                         // throw the game object in your off hand
+                        objectRB.mass = 1;
                         players[i].GetComponent<ObjectInteraction>().throwItem = false;
                         throwObject.tag = "Projectile";
                         objectRB.constraints = RigidbodyConstraints.None;

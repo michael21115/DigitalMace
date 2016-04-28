@@ -9,6 +9,9 @@ public class RoomPrinter : MonoBehaviour {
     [SerializeField]
     Transform doorPrefab;
 
+    [SerializeField]
+    Transform wallDestroyer;
+
 	// Use this for initialization
 	void Start () {
         transform.localPosition += new Vector3(-5, 0, -5);
@@ -42,6 +45,13 @@ public class RoomPrinter : MonoBehaviour {
         transform.position += transform.forward * 2;
     }
 
+    public void spawnWallDestroyer(int i)
+    {
+        Transform temp = Instantiate(wallDestroyer, transform.position + transform.forward, transform.rotation) as Transform;
+        temp.GetComponent<EntryRoomClear>().direction = i;
+        temp.transform.parent = transform.parent;
+    }
+
     //Note: using grid units. So 1 width is 5 walls wide, or 10 units
     public void spawnFullRoom(int width, int length)
     {
@@ -56,6 +66,10 @@ public class RoomPrinter : MonoBehaviour {
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[3])
         {
             spawnWall((int)(length / 2));
+            if (transform.parent.GetComponent<RoomProperties>().wallDestruction[3])
+            {
+                spawnWallDestroyer(3);
+            }
             spawnDoor();
             spawnWall((int)(length / 2));
         }
@@ -68,6 +82,10 @@ public class RoomPrinter : MonoBehaviour {
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[0])
         {
             spawnWall((int)(length / 2));
+            if (transform.parent.GetComponent<RoomProperties>().wallDestruction[0])
+            {
+                spawnWallDestroyer(0);
+            }
             spawnDoor();
             spawnWall((int)(length / 2));
         }
@@ -80,6 +98,10 @@ public class RoomPrinter : MonoBehaviour {
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[1])
         {
             spawnWall(length / 2);
+            if (transform.parent.GetComponent<RoomProperties>().wallDestruction[1])
+            {
+                spawnWallDestroyer(1);
+            }
             spawnDoor();
             spawnWall(length / 2);
         }
@@ -92,6 +114,10 @@ public class RoomPrinter : MonoBehaviour {
         if (transform.parent.GetComponent<RoomProperties>().doorLocations[2])
         {
             spawnWall((int)(length / 2));
+            if (transform.parent.GetComponent<RoomProperties>().wallDestruction[2])
+            {
+                spawnWallDestroyer(2);
+            }
             spawnDoor();
             spawnWall((int)(length / 2));
         }

@@ -11,12 +11,17 @@ public class RoomProperties : MonoBehaviour {
         2 : South
         3 : West
     */
+    [SerializeField]
+    Transform furniturePlacerPrefab;
    
     public bool[] doorLocations;
+    public bool[] wallDestruction;
     public bool[] doorsChecked;
     public string type;
     public bool accessible = false;
+    public bool furniture = true;
 
+    float timer = 0;
     int numberOfDoors = 0;
 
     [SerializeField]
@@ -39,11 +44,23 @@ public class RoomProperties : MonoBehaviour {
             //Add one door then a second.
             while(numberOfDoors < 2)
             {
-                int randomNumber = (int)(Random.value * 3.99f);
-                if(!doorLocations[randomNumber])
+                int randomNumber = (int)(Random.value * 4.99f);
+                if (randomNumber >= 4)
                 {
-                    doorLocations[randomNumber] = true;
-                    numberOfDoors++;
+                    randomNumber = (int)(Random.value * 3.99f);
+                    if (!wallDestruction[randomNumber])
+                    {
+                        wallDestruction[randomNumber] = true;
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
+                }
+                else if (randomNumber <= 3) {    
+                    if (!doorLocations[randomNumber])
+                    {
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
                 }
             }
         }
@@ -53,11 +70,24 @@ public class RoomProperties : MonoBehaviour {
             //Add one door
             while (numberOfDoors < 2)
             {
-                int randomNumber = (int)(Random.value * 3.99f);
-                if (!doorLocations[randomNumber])
+                int randomNumber = (int)(Random.value * 4.99f);
+                if (randomNumber >= 4)
                 {
-                    doorLocations[randomNumber] = true;
-                    numberOfDoors++;
+                    randomNumber = (int)(Random.value * 3.99f);
+                    if (!wallDestruction[randomNumber])
+                    {
+                        wallDestruction[randomNumber] = true;
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
+                }
+                else if (randomNumber <= 3)
+                {    
+                    if (!doorLocations[randomNumber])
+                    {
+                        doorLocations[randomNumber] = true;
+                        numberOfDoors++;
+                    }
                 }
             }
         }
@@ -134,7 +164,18 @@ public class RoomProperties : MonoBehaviour {
             }
         }
 
-
+        //When timer reaches a certain point place furniture.
+        if (!furniture)
+        {
+            if (timer < 1f)
+            {
+                timer += Time.deltaTime;
+                if (timer > 1f)
+                {
+                    Instantiate(furniturePlacerPrefab, transform.position, transform.rotation);
+                }
+            }
+        }
 
 
     }

@@ -43,6 +43,13 @@ public class DeleteSelf : MonoBehaviour {
                 Destroy(transform.parent.gameObject);
                 Destroy(gameObject);
             }
+            if(leftRayInfo.collider.tag == "Unique")
+            {
+                Transform temp = Instantiate(wallPrefab, transform.parent.position, transform.parent.rotation) as Transform;
+                temp.transform.parent = transform.parent.parent;
+                Destroy(transform.parent.gameObject);
+                Destroy(gameObject);
+            }
         }
 
 		//Debug.DrawRay(transform.position, transform.right);       
@@ -69,8 +76,15 @@ public class DeleteSelf : MonoBehaviour {
             {
                 Transform temp = Instantiate(wallPrefab, transform.parent.position, transform.parent.rotation) as Transform;
                 temp.transform.parent = transform.parent;
-                Debug.Log("OUTER WALL DETECTED");
+                //Debug.Log("OUTER WALL DETECTED");
                 Destroy(transform.parent);
+                Destroy(gameObject);
+            }
+            if (rightRayInfo.collider.tag == "Unique")
+            {
+                Transform temp = Instantiate(wallPrefab, transform.parent.position, transform.parent.rotation) as Transform;
+                temp.transform.parent = transform.parent.parent;
+                Destroy(transform.parent.gameObject);
                 Destroy(gameObject);
             }
         }
