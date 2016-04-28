@@ -81,27 +81,28 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Xbox_Controls ()
-            {
+    {
         if (Input.GetButtonDown("Joy " + playerNo + " A"))
-                {
+        {
             Debug.Log("Player " + playerNo + 1 + " pressed 'A'");
 
             if (GetComponent<ObjectInteraction>().throwItem)
-                    {
+            {
                 Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
-                        Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
+                Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
 
-                        // throw the game object in your off hand
-                        players[i].GetComponent<ObjectInteraction>().throwItem = false;
-                        throwObject.tag = "Projectile";
-                        objectRB.constraints = RigidbodyConstraints.None;
-                        objectRB.constraints = RigidbodyConstraints.FreezeRotation;
+                // throw the game object in your off hand
+                GetComponent<ObjectInteraction>().throwItem = false;
+                objectRB.mass = 1;
+                throwObject.tag = "Projectile";
+                objectRB.constraints = RigidbodyConstraints.None;
+                objectRB.constraints = RigidbodyConstraints.FreezeRotation;
                 objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
                 objectRB.AddForce(transform.forward * GetComponent<ObjectInteraction>().throwForce * 1000f);
-                        objectRB.useGravity = true;
+                objectRB.useGravity = true;
                 GetComponent<ObjectInteraction>().hands[0].DetachChildren();
-                    }
-                }
+             }
+        }
         if (Input.GetButtonDown("Joy " + playerNo + " B"))
                 {
             Debug.Log("Player " + playerNo + 1 + " pressed 'B'");
