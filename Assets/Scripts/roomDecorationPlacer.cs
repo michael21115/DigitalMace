@@ -39,7 +39,7 @@ public class roomDecorationPlacer : MonoBehaviour {
                 //New Loop to generate furniture. Allows for more furniture to be added.
                 foreach(Transform obj in furniture)
                 {
-                    Debug.Log(currentChance);
+                    //Debug.Log(currentChance);
                     if (randomNumber < currentChance)
                     {
                         currentChance = uniformChance;
