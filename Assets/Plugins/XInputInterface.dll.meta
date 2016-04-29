@@ -11,6 +11,13 @@ PluginImporter:
     Any:
       enabled: 1
       settings: {}
+<<<<<<< HEAD
+=======
+    Editor:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+>>>>>>> origin/master
   userData: 
   assetBundleName: 
   assetBundleVariant: 

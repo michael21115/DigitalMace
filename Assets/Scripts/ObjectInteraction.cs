@@ -9,8 +9,8 @@ public class ObjectInteraction : MonoBehaviour {
     public string throwItemName, keyItemName;
     public float objectMass;
 
-    // Use this for initialization
-    void Start ()
+	// Use this for initialization
+	void Start ()
     {
 	}
 	
@@ -54,12 +54,13 @@ public class ObjectInteraction : MonoBehaviour {
             objectMass = other.gameObject.GetComponent<ThrowableObjects>().mass;
             throwItemName = other.gameObject.name;
 
-            otherRB.constraints = RigidbodyConstraints.FreezeAll;
-            other.transform.position = hands[0].position;
-            other.transform.SetParent(hands[0]);
+                otherRB.constraints = RigidbodyConstraints.FreezeAll;
+                otherRB.mass = 0;
+                other.transform.position = hands[0].position;
+                other.transform.SetParent(hands[0]);
             otherRB.mass = 0f;
-            otherRB.useGravity = false;
-            throwItem = true;
+                otherRB.useGravity = false;
+                throwItem = true;
         }
         else if (other.collider.tag == "Key Item" && !keyItem)
         {
