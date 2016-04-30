@@ -73,102 +73,111 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetJoystickNames()[playerNo].Contains("Xbox"))
             {
+                // Xbox Controller A button
                 if (Input.GetButtonDown("Joy " + playerNo + " A"))
                 {
                     Debug.Log("Player " + playerNo + " pressed 'A'");
-
-                    if (GetComponent<ObjectInteraction>().throwItem)
-                    {
-                        Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
-                        Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
-
-                        // throw the game object in your off hand
-                        GetComponent<ObjectInteraction>().throwItem = false;
-                        throwObject.tag = "Projectile";
-                        objectRB.constraints = RigidbodyConstraints.None;
-                        objectRB.constraints = RigidbodyConstraints.FreezeRotation;
-                        //objectRB.detectCollisions = true; // re-enables collision detection
-                        objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
-                        objectRB.AddForce(transform.forward * GetComponent<ObjectInteraction>().throwForce * 1000f);
-                        objectRB.useGravity = true;
-                        GetComponent<ObjectInteraction>().hands[0].DetachChildren();
-                    }
+                    Cross_Button();
                 }
+                // Xbox Controller B button
                 if (Input.GetButtonDown("Joy " + playerNo + " B"))
                 {
                     Debug.Log("Player " + playerNo + " pressed 'B'");
+                    Circle_Button();
                 }
+                // Xbox Controller X button
                 if (Input.GetButtonDown("Joy " + playerNo + " X"))
                 {
                     Debug.Log("Player " + playerNo + " pressed 'X'");
-
-                    if (canDash && !hasDashed)
-                    {
-                        canDash = false;
-                        hasDashed = true;
-                        GetComponent<Rigidbody>().AddForce((Vector3.up * dashBoost) + (transform.forward * dashSpeed * dashBoost));
-                    }
-
-                    if (GetComponent<ObjectInteraction>().throwItem)
-                    {
-                        Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
-                        Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
-
-                        // drop the game object in your off hand
-                        GetComponent<ObjectInteraction>().throwItem = false;
-                        objectRB.constraints = RigidbodyConstraints.None;
-                        objectRB.constraints = RigidbodyConstraints.FreezeRotation;
-                        objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
-                        objectRB.AddForce(transform.up * 500);
-                        objectRB.useGravity = true;
-                        GetComponent<ObjectInteraction>().hands[0].DetachChildren();
-                    }
+                    Square_Button(); 
                 }
+                // Xbox Controller Y button 
                 if (Input.GetButtonDown("Joy " + playerNo + " Y"))
                 {
                     Debug.Log("Player " + playerNo + " pressed 'Y'");
-
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    Triangle_Button();
                 }
             }
             // Input for other (PS4) Controllers
             else if (Input.GetJoystickNames()[playerNo].Contains("Wireless"))
             {
+                // PS4 Controller Square button
                 if (Input.GetButtonDown("Joy " + playerNo + " A"))
                 {
-                    Debug.Log("Player " + playerNo + " pressed 'square'");
+                    Debug.Log("Player " + playerNo + " pressed 'Square'");
+                    Square_Button();
                 }
+                // PS4 Controller Cross button
                 if (Input.GetButtonDown("Joy " + playerNo + " B"))
                 {
-                    Debug.Log("Player " + playerNo + " pressed 'cross'");
-
-                    if (GetComponent<ObjectInteraction>().throwItem)
-                    {
-                        Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
-                        Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
-
-                        // throw the game object in your off hand
-                        GetComponent<ObjectInteraction>().throwItem = false;
-                        throwObject.tag = "Projectile";
-                        objectRB.constraints = RigidbodyConstraints.None;
-                        objectRB.constraints = RigidbodyConstraints.FreezeRotation;
-                        objectRB.detectCollisions = true;
-                        objectRB.AddForce(transform.forward * GetComponent<ObjectInteraction>().throwForce * 1000f);
-                        objectRB.useGravity = true;
-                        GetComponent<ObjectInteraction>().hands[0].DetachChildren();
-                    }
+                    Debug.Log("Player " + playerNo + " pressed 'Cross'");
+                    Cross_Button();
                 }
+                // Xbox Controller Circle button
                 if (Input.GetButtonDown("Joy " + playerNo + " X"))
                 {
-                    Debug.Log("Player " + playerNo + " pressed 'circle'");
+                    Debug.Log("Player " + playerNo + " pressed 'Circle'");
+                    Circle_Button();
                 }
+                // Xbox Controller Triangle button 
                 if (Input.GetButtonDown("Joy " + playerNo + " Y"))
                 {
-                    Debug.Log("Player " + playerNo + " pressed 'triangle'");
-
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                    Debug.Log("Player " + playerNo + " pressed 'Triangle'");
+                    Triangle_Button();
                 }
             }
+        }
+    }
+
+    void Cross_Button ()
+    {
+        if (GetComponent<ObjectInteraction>().throwItem)
+        {
+            Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+            Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
+
+            // throw the game object in your off hand
+            GetComponent<ObjectInteraction>().throwItem = false;
+            throwObject.tag = "Projectile";
+            objectRB.constraints = RigidbodyConstraints.None;
+            objectRB.constraints = RigidbodyConstraints.FreezeRotation;
+            //objectRB.detectCollisions = true; // re-enables collision detection
+            objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
+            objectRB.AddForce(transform.forward * GetComponent<ObjectInteraction>().throwForce * 1000f);
+            objectRB.useGravity = true;
+            GetComponent<ObjectInteraction>().hands[0].DetachChildren();
+        }
+    }
+    void Circle_Button ()
+    {
+
+    }
+    void Triangle_Button ()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    void Square_Button ()
+    {
+        if (canDash && !hasDashed)
+        {
+            canDash = false;
+            hasDashed = true;
+            GetComponent<Rigidbody>().AddForce((Vector3.up * dashBoost) + (transform.forward * dashSpeed * dashBoost));
+        }
+
+        if (GetComponent<ObjectInteraction>().throwItem)
+        {
+            Transform throwObject = GetComponent<ObjectInteraction>().hands[0].GetChild(0);
+            Rigidbody objectRB = throwObject.GetComponent<Rigidbody>();
+
+            // drop the game object in your off hand
+            GetComponent<ObjectInteraction>().throwItem = false;
+            objectRB.constraints = RigidbodyConstraints.None;
+            objectRB.constraints = RigidbodyConstraints.FreezeRotation;
+            objectRB.mass = GetComponent<ObjectInteraction>().objectMass; // resets the mass of the object before it is thrown
+            objectRB.AddForce(transform.up * 500);
+            objectRB.useGravity = true;
+            GetComponent<ObjectInteraction>().hands[0].DetachChildren();
         }
     }
 }

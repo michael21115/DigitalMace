@@ -33,7 +33,11 @@ public class ObjectInteraction : MonoBehaviour {
     {
         Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
 
-        if (other.collider.tag == "Projectile")
+        if (other.collider.tag == "Player")
+        {
+
+        }
+        else if (other.collider.tag == "Projectile")
         {
             GetComponent<Rigidbody>().AddForce((Vector3.up * 500f));
 
@@ -48,8 +52,7 @@ public class ObjectInteraction : MonoBehaviour {
                 hands[1].DetachChildren();
             }
         }
-
-        if (other.collider.tag == "Grabby Thing" && !throwItem)
+        else if (other.collider.tag == "Grabby Thing" && !throwItem)
         {
             objectMass = other.gameObject.GetComponent<ThrowableObjects>().mass;
             throwItemName = other.gameObject.name;
