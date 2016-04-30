@@ -10,14 +10,32 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float currTime = 0f;
 
     public int playerNo;
+    public Color playerColor;
     public float speed = 2000f;
     public float dashSpeed = 5f;
     public float dashBoost = 1000f;
     bool canDash = true;
     bool hasDashed = false;
 
-    //List<string> listOfJoysticks = new List<string>();
-    //string[] joystickArray;
+    void Start ()
+    {
+        if (playerNo == 0)
+        {
+            playerColor = Color.red;
+        }
+        else if (playerNo == 1)
+        {
+            playerColor = Color.blue;
+        }
+        else if (playerNo == 2)
+        {
+            playerColor = Color.yellow;
+        }
+        else if (playerNo == 3)
+        {
+            playerColor = Color.green;
+        }
+    }
 
 	// Use this for initialization
 	void Update ()
