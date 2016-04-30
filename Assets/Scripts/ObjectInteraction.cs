@@ -3,9 +3,7 @@ using System.Collections;
 
 public class ObjectInteraction : MonoBehaviour {
 
-    [SerializeField] GameObject iGotIt;
-
-    public Transform[] hands;
+    [SerializeField] public Transform[] hands;
     public float throwForce;
     public bool throwItem, keyItem;
     public string throwItemName, keyItemName;
@@ -35,10 +33,11 @@ public class ObjectInteraction : MonoBehaviour {
     {
         Rigidbody otherRB = other.gameObject.GetComponent<Rigidbody>();
 
-        // If another player bumps into you then apply a bounce force in their direction
-        // If a projectile or player hits you, drop the key item you are holding and apply knockback
-        if (other.collider.tag == "Projectile" || other.collider.tag == "Player")
+        if (other.collider.tag == "Projectile")
         {
+            otherRB.mass = 1;
+            GetComponent<Rigidbody>().AddForce((Vector3.up * 500f));
+
             if (keyItem)
             {
                 Rigidbody keyItemRB = hands[1].FindChild(keyItemName).GetComponent<Rigidbody>();
@@ -49,10 +48,8 @@ public class ObjectInteraction : MonoBehaviour {
                 keyItemRB.useGravity = true;
                 hands[1].DetachChildren();
             }
-
-            GetComponent<Rigidbody>().AddForce(-transform.forward * 500 + Vector3.up * 300);
         }
-        // If the item you bump into is a grabable item and you currently don't have one, pick it up
+
         if (other.collider.tag == "Grabby Thing" && !throwItem)
         {
             objectMass = other.gameObject.GetComponent<ThrowableObjects>().mass;
@@ -66,8 +63,7 @@ public class ObjectInteraction : MonoBehaviour {
                 otherRB.useGravity = false;
                 throwItem = true;
         }
-        // If the other item is a key item and you aren't holding a key item, pick it up
-        if (other.collider.tag == "Key Item" && !keyItem)
+        else if (other.collider.tag == "Key Item" && !keyItem)
         {
             keyItemName = other.gameObject.name;
 
@@ -77,11 +73,6 @@ public class ObjectInteraction : MonoBehaviour {
             otherRB.detectCollisions = false;
             otherRB.useGravity = false;
             keyItem = true;
-
-            // Add particle effect of your color to indicate that you are holding a key item
-            GameObject iGotItClone = (GameObject)Instantiate(iGotIt, transform.position, iGotIt.transform.rotation);
-            iGotItClone.transform.SetParent(transform);
-            iGotItClone.GetComponent<ParticleSystem>().startColor = GetComponent<PlayerController>().playerColor;
         }
     }
 }
