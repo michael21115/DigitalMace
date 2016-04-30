@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class roomDecorationPlacer : MonoBehaviour {
     
@@ -8,6 +9,7 @@ public class roomDecorationPlacer : MonoBehaviour {
 
     [SerializeField] Transform[] furniture;
     [SerializeField] Transform blueprint;
+
     [SerializeField] float totalChance;
 
     private float uniformChance;
@@ -21,7 +23,7 @@ public class roomDecorationPlacer : MonoBehaviour {
         temp.transform.parent = defaultParent;
 		counter++;
 	}
-
+		
     // Use this for initialization
     void Start()
     {
@@ -35,6 +37,7 @@ public class roomDecorationPlacer : MonoBehaviour {
             {
                 pos = new Vector3(x * 2, 0, z * -2) + blueprint.transform.position;  
                 float randomNumber = Random.Range(0.0f, 1.0f);
+
                 currentChance = uniformChance;
                 //New Loop to generate furniture. Allows for more furniture to be added.
                 foreach(Transform obj in furniture)
@@ -55,11 +58,13 @@ public class roomDecorationPlacer : MonoBehaviour {
                 if (counter > 0) //this ensures that only a max of around 4-5 objects spawn. 0 objects spawned is also possible
                 {
                     Destroy(gameObject);
-                    break;
+                    
                 }
 
             }
         }
         Destroy ( gameObject ); //destroy the placer after job is done
+
+
     }
 }
