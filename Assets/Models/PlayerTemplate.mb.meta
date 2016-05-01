@@ -13,6 +13,49 @@ ModelImporter:
     100010: pCube6
     100012: pCube7
     100014: //RootNode
+    100016: Body_Geo
+    100018: Head_END
+    100020: Head_Geo
+    100022: Head_JNT
+    100024: L_Ball_END
+    100026: L_Ball_JNT
+    100028: L_Foot_JNT
+    100030: L_ForeArm_JNT
+    100032: L_Hand_JNT
+    100034: L_Index01_JNT
+    100036: L_Index02_JNT
+    100038: L_Index_END
+    100040: L_LowerLeg_JNT
+    100042: L_Mitt01_JNT
+    100044: L_Mitt02_JNT
+    100046: L_Mitt_END
+    100048: L_Thumb01_JNT
+    100050: L_Thumb02_JNT
+    100052: L_Thumb_End
+    100054: L_UpperArm_JNT
+    100056: L_UpperLeg_JNT
+    100058: Neck_JNT
+    100060: Pelvic_JNT
+    100062: R_Ball_END
+    100064: R_Ball_JNT
+    100066: R_Foot_JNT
+    100068: R_ForeArm_JNT
+    100070: R_Hand_JNT
+    100072: R_Index01_JNT
+    100074: R_Index02_JNT
+    100076: R_Index_END
+    100078: R_LowerLeg_JNT
+    100080: R_Mitt01_JNT
+    100082: R_Mitt02_JNT
+    100084: R_Mitt_END
+    100086: R_Thumb01_JNT
+    100088: R_Thumb02_JNT
+    100090: R_Thumb_End
+    100092: R_UpperArm_JNT
+    100094: R_UpperLeg_JNT
+    100096: Root_JNT
+    100098: Spine1_JNT
+    100100: Spine2_JNT
     400000: pCube1
     400002: pCube2
     400004: pCube3
@@ -21,6 +64,49 @@ ModelImporter:
     400010: pCube6
     400012: pCube7
     400014: //RootNode
+    400016: Body_Geo
+    400018: Head_END
+    400020: Head_Geo
+    400022: Head_JNT
+    400024: L_Ball_END
+    400026: L_Ball_JNT
+    400028: L_Foot_JNT
+    400030: L_ForeArm_JNT
+    400032: L_Hand_JNT
+    400034: L_Index01_JNT
+    400036: L_Index02_JNT
+    400038: L_Index_END
+    400040: L_LowerLeg_JNT
+    400042: L_Mitt01_JNT
+    400044: L_Mitt02_JNT
+    400046: L_Mitt_END
+    400048: L_Thumb01_JNT
+    400050: L_Thumb02_JNT
+    400052: L_Thumb_End
+    400054: L_UpperArm_JNT
+    400056: L_UpperLeg_JNT
+    400058: Neck_JNT
+    400060: Pelvic_JNT
+    400062: R_Ball_END
+    400064: R_Ball_JNT
+    400066: R_Foot_JNT
+    400068: R_ForeArm_JNT
+    400070: R_Hand_JNT
+    400072: R_Index01_JNT
+    400074: R_Index02_JNT
+    400076: R_Index_END
+    400078: R_LowerLeg_JNT
+    400080: R_Mitt01_JNT
+    400082: R_Mitt02_JNT
+    400084: R_Mitt_END
+    400086: R_Thumb01_JNT
+    400088: R_Thumb02_JNT
+    400090: R_Thumb_End
+    400092: R_UpperArm_JNT
+    400094: R_UpperLeg_JNT
+    400096: Root_JNT
+    400098: Spine1_JNT
+    400100: Spine2_JNT
     2300000: pCube1
     2300002: pCube2
     2300004: pCube3
@@ -42,7 +128,11 @@ ModelImporter:
     4300008: pCube5
     4300010: pCube6
     4300012: pCube7
+    4300014: Head_Geo
+    4300016: Body_Geo
     9500000: //RootNode
+    13700000: Body_Geo
+    13700002: Head_Geo
   materials:
     importMaterials: 1
     materialName: 0
