@@ -10,8 +10,9 @@ public class ThrowableObjects : MonoBehaviour {
     float currTime = 0f;
 
     public float mass;
-
     Rigidbody thisRB;
+
+    string pointGoesTo;
 
     void Start ()
     {
@@ -32,4 +33,12 @@ public class ThrowableObjects : MonoBehaviour {
             }
         }
 	}
+
+    void OnCollisionEnter (Collision other)
+    {
+        if (other.collider.name.Contains("Player"))
+        {
+            pointGoesTo = other.gameObject.name;
+        }
+    }
 }
