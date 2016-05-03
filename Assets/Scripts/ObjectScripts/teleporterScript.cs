@@ -12,7 +12,7 @@ public class teleporterScript : MonoBehaviour {
             int randCoordWidth = Random.Range(0, 3);
             Debug.Log(randCoordHeight + "," + randCoordWidth);
             GameObject destination = GameObject.Find("RoomController (" + randCoordHeight.ToString() + " , " + randCoordWidth.ToString() + ")");
-            collider.transform.position = destination.transform.position + Vector3.up;
+            collider.transform.position = destination.transform.position + new Vector3 (0f, 0.5f, 0f);
         }
     }
 }
