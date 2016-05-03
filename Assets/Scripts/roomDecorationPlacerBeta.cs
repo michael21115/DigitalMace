@@ -52,10 +52,5 @@ public class roomDecorationPlacerBeta : MonoBehaviour {
         }
         Destroy ( gameObject ); //destroy the placer after job is done
 
-
     }
-    // Update is called once per frame
-    void Update () {
-	    
-	}
 }

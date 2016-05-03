@@ -27,7 +27,6 @@ public class RoomProperties : MonoBehaviour {
     [SerializeField]
     Transform roomPrinter;
 
-
 	// Use this for initialization
 	void Start () {
         doorsChecked = new bool[4];
@@ -176,8 +175,5 @@ public class RoomProperties : MonoBehaviour {
                 }
             }
         }
-
-
     }
-
 }
