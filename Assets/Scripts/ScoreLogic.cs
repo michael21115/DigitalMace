@@ -41,4 +41,5 @@ public class ScoreLogic : MonoBehaviour {
 		P3.text = ScoreP3.ToString();
 		P4.text = ScoreP4.ToString();
 	}
+
 }
