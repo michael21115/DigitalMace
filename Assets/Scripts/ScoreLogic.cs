@@ -10,6 +10,8 @@ public class ScoreLogic : MonoBehaviour {
 
 	int maxWidth = 3;
 	int maxHeight = 4;
+	float timer = 0f;
+	bool playersSpawned = false;
 
 	void placeComponent (Transform currentThing) {
 		int tempHeight = Random.Range (0, maxHeight);
@@ -23,22 +25,29 @@ public class ScoreLogic : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-		PlayerContainer = GameObject.Find ("PlayerContainer").transform;
-		placeComponent (PlayerContainer);
-
-		GoalItem = GameObject.Find ("GoalItem").transform;
-		placeComponent (GoalItem);
-
-		WinZone = GameObject.Find ("WinZone").transform;
-		placeComponent (WinZone);
-
-		BombSpawner = GameObject.Find ("BombSpawner").transform;
-		placeComponent (BombSpawner);
 
 		P1.text = ScoreP1.ToString();
 		P2.text = ScoreP2.ToString();
 		P3.text = ScoreP3.ToString();
 		P4.text = ScoreP4.ToString();
+	}
+
+	void Update() {
+		timer += Time.deltaTime;
+		if (timer < 0.5f && timer > 0.4f && playersSpawned == false){
+			GoalItem = GameObject.Find ("GoalItem").transform;
+			placeComponent (GoalItem);
+
+			WinZone = GameObject.Find ("WinZone").transform;
+			placeComponent (WinZone);
+
+			BombSpawner = GameObject.Find ("BombSpawner").transform;
+			placeComponent (BombSpawner);
+
+			PlayerContainer = GameObject.Find ("PlayerContainer").transform;
+			placeComponent (PlayerContainer);
+			playersSpawned = true;
+		}
+
 	}
 }
