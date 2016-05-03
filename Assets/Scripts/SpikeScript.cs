@@ -13,7 +13,7 @@ public class SpikeScript : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
-        if (col.tag.Contains("Player"))
+        if (col.tag == "Player")
         {
             col.GetComponent<PlayerController>().speed = slowSpeed;
         }
@@ -21,7 +21,7 @@ public class SpikeScript : MonoBehaviour {
 
     void OnTriggerExit(Collider col)
     {
-        if (col.tag.Contains("Player"))
+        if (col.tag == "Player")
         {
             col.GetComponent<PlayerController>().speed = defaultSpeed;
         }
