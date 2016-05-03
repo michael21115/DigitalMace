@@ -35,21 +35,6 @@ public class OpenScript : MonoBehaviour {
        
     }
 
-//    void OnTriggerStay(Collider col)
-//    {
-//        if (col.tag == "Player")
-//        {
-//            if (Input.GetKeyDown(KeyCode.E))
-//            {
-//                Debug.Log("E PRESSED");
-//                if (open)
-//                    open = !open;
-//                else if (!open)
-//                    open = !open;
-//            }
-//        }
-//    }
-
 	void OnTriggerStay (Collider collider){
         //Debug.Log(collider.tag);
         if (collider.tag == "Player")
