@@ -17,8 +17,8 @@ public class teleporterScript : MonoBehaviour {
         if (collider.tag == "Player")
         {
             Debug.Log(collider.tag);
-            int randCoordX = Random.Range(0, 5);
-            int randCoordY = Random.Range(0, 5);
+            int randCoordX = Random.Range(0, 3);
+            int randCoordY = Random.Range(0, 2);
             Debug.Log(randCoordX + "," + randCoordY);
             GameObject destination = GameObject.Find("RoomController (" + randCoordX.ToString() + " , " + randCoordY.ToString() + ")");
             collider.transform.position = destination.transform.position + Vector3.up;

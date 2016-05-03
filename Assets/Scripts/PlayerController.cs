@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] float waitTime = 10f;
     [SerializeField] float currTime = 0f;
-
+        
     public int playerNo;
     public float speed = 2000f;
     public float dashSpeed = 5f;

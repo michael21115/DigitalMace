@@ -5,6 +5,7 @@ public class AccessChecker : MonoBehaviour {
 
     RoomProperties centerRoomProperties;
     AccessTotal totalAccess;
+    string lastRoom;
     float timer;
 
 	// Use this for initialization
@@ -16,8 +17,9 @@ public class AccessChecker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        Debug.Log(lastRoom);
         //Check all availible paths from here
-        if(timer < 0.5f)
+        if (timer < 0.5f)
         {
             timer += Time.deltaTime;
             if(timer > 0.5f)
@@ -25,6 +27,12 @@ public class AccessChecker : MonoBehaviour {
                 UpdateAccess(transform);
             }
         }
+        
+    }
+
+    void SpawnBombs()
+    {
+
     }
 
     void UpdateAccess(Transform roomTransform)
@@ -57,7 +65,7 @@ public class AccessChecker : MonoBehaviour {
                 if (!newProperties.accessible)
                     totalAccess.totalAccess++;
                 newProperties.accessible = true;
-               
+                
                 UpdateAccess(newRoom.transform);
             }
         }
