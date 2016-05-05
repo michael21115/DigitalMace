@@ -17,6 +17,10 @@ public class PlayerController : MonoBehaviour {
     bool canDash = true;
     bool hasDashed = false;
 
+    public float horizontal;
+    public float vertical;
+    public Vector3 movement;
+
     void Start ()
     {
         if (playerNo == 0)
@@ -60,9 +64,9 @@ public class PlayerController : MonoBehaviour {
     {
         // For each joystick attached, control that coresponding player
         // Maybe we will have a player select screen?
-        float horizontal = Input.GetAxis("Joy " + playerNo + " Horizontal");
-        float vertical = Input.GetAxis("Joy " + playerNo + " Vertical");
-        Vector3 movement = new Vector3(horizontal, 0, vertical) * speed;
+        horizontal = Input.GetAxis("Joy " + playerNo + " Horizontal");
+        vertical = Input.GetAxis("Joy " + playerNo + " Vertical");
+        movement = new Vector3(horizontal, 0, vertical) * speed;
 
         //players[i].position += movement * Time.deltaTime;
 
