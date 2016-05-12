@@ -4,9 +4,12 @@ using System.Collections;
 public class ExplosionScript : MonoBehaviour {
 
     private float timer;
+    Transform cam;
 
     void Start()
     {
+        cam = GameObject.Find("Main Camera").transform;
+        cam.GetComponent<CameraShake>().cameraShake(0.4f);
         timer = 0;
     }
 
@@ -14,7 +17,7 @@ public class ExplosionScript : MonoBehaviour {
     {
 
         timer += Time.deltaTime;
-        if(timer > 3f)
+        if(timer > 1f)
         {
             Destroy(gameObject);
         }

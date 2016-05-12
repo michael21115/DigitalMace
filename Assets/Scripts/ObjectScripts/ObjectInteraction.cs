@@ -4,6 +4,8 @@ using System.Collections;
 public class ObjectInteraction : MonoBehaviour {
 
     [SerializeField] GameObject iGotIt;
+    [SerializeField]
+    Transform CameraC;
     public Transform[] hands;
     public float throwForce;
     public bool throwItem, keyItem;
@@ -13,6 +15,7 @@ public class ObjectInteraction : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
+        CameraC = GameObject.Find("Main Camera").transform;
 	}
 	
 	// Update is called once per frame
@@ -36,8 +39,9 @@ public class ObjectInteraction : MonoBehaviour {
 
         // If another player bumps into you then apply a bounce force in their direction
         // If a projectile or player hits you, drop the key item you are holding and apply knockback
-        if (other.collider.tag == "Projectile" || other.collider.tag == "Player")
+        if (other.collider.tag == "Projectile")
         {
+            CameraC.GetComponent<CameraShake>().cameraShake(0.2f);
             if (keyItem)
             {
                 Rigidbody keyItemRB = hands[1].FindChild(keyItemName).GetComponent<Rigidbody>();
@@ -61,7 +65,7 @@ public class ObjectInteraction : MonoBehaviour {
                 otherRB.mass = 0;
                 other.transform.position = hands[0].position;
                 other.transform.SetParent(hands[0]);
-            otherRB.mass = 0f;
+                otherRB.mass = 0f;
                 otherRB.useGravity = false;
                 throwItem = true;
         }

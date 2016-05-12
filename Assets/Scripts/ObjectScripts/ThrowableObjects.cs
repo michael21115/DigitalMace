@@ -12,7 +12,7 @@ public class ThrowableObjects : MonoBehaviour {
     public float mass;
     Rigidbody thisRB;
 
-    string pointGoesTo;
+    public string pointGoesTo;
 
     void Start ()
     {

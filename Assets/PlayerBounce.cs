@@ -17,7 +17,7 @@ public class PlayerBounce : MonoBehaviour {
             if(timer < 0.2f)
             {
                 timer += Time.deltaTime;
-                gameObject.GetComponent<Rigidbody>().AddForce(direction * -400f);
+                gameObject.GetComponent<Rigidbody>().AddForce(direction * -pushForce);
             }
             else
             {

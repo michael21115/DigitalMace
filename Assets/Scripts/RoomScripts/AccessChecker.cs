@@ -17,7 +17,7 @@ public class AccessChecker : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        Debug.Log(lastRoom);
+        //Debug.Log(lastRoom);
         //Check all availible paths from here
         if (timer < 0.5f)
         {
@@ -60,7 +60,7 @@ public class AccessChecker : MonoBehaviour {
                 //Get the opposite index of the door
                 int opposite = i + 2;
                 if (opposite == 4) opposite = 0; else if (opposite == 5) opposite = 1;
-                //Debug.Log(room.transform.name + " " + (DoorLocations)(i) + " to " + newRoom.name);
+                Debug.Log(room.transform.name + " " + (DoorLocations)(i) + " to " + newRoom.name);
                 newProperties.doorsChecked[opposite] = true;
                 if (!newProperties.accessible)
                     totalAccess.totalAccess++;

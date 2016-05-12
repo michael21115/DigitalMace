@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class ScoreLogic : MonoBehaviour {
 
 	[SerializeField] Transform PlayerContainer, GoalItem, WinZone, BombSpawner;
-	[SerializeField] static int ScoreP1, ScoreP2, ScoreP3, ScoreP4;
+	public static int ScoreP1, ScoreP2, ScoreP3, ScoreP4;
 	[SerializeField] Text P1, P2, P3, P4;
 
 	int maxWidth = 3;
@@ -18,7 +18,9 @@ public class ScoreLogic : MonoBehaviour {
 		int tempWidth = Random.Range (0, maxWidth);
 		//Debug.Log (tempHeight + " , " + tempWidth);
 		GameObject destination = GameObject.Find ("RoomController (" + tempHeight + " , " + tempWidth + ")");
+        float temp = currentThing.transform.position.y;
 		currentThing.transform.position = destination.transform.position;
+        currentThing.transform.position = new Vector3(destination.transform.position.x, temp, destination.transform.position.z);
 		//Debug.Log ("Placing " + currentThing + " at " + destination);
 		destination.GetComponent<RoomProperties>().furniture = true;
 	}
@@ -33,22 +35,45 @@ public class ScoreLogic : MonoBehaviour {
 	}
 
 	void Update() {
-		timer += Time.deltaTime;
-		if (timer < 0.5f && timer > 0.4f && playersSpawned == false){
-		GoalItem = GameObject.Find ("GoalItem").transform;
-		placeComponent (GoalItem);
 
-		WinZone = GameObject.Find ("WinZone").transform;
-		placeComponent (WinZone);
+        if(timer < 1f)
+        {
+            timer += Time.deltaTime;
+            if(timer > 1f)
+            {
+                GoalItem = GameObject.Find("GoalItem").transform;
+                placeComponent(GoalItem);
 
-		BombSpawner = GameObject.Find ("BombSpawner").transform;
-		placeComponent (BombSpawner);
+                WinZone = GameObject.Find("WinZone").transform;
+                placeComponent(WinZone);
 
-			PlayerContainer = GameObject.Find ("PlayerContainer").transform;
-			placeComponent (PlayerContainer);
-			playersSpawned = true;
-		}
+                BombSpawner = GameObject.Find("BombSpawner").transform;
+                placeComponent(BombSpawner);
 
+                PlayerContainer = GameObject.Find("PlayerContainer").transform;
+                placeComponent(PlayerContainer);
+                playersSpawned = true;
+            }
+        }
 	}
 
+    public void addOne(int n)
+    {
+        if(n == 1)
+        {
+            ScoreP1++;
+        }
+        else if( n == 2)
+        {
+            ScoreP2++;
+        }
+        else if (n == 3)
+        {
+            ScoreP3++;
+        }
+        else if (n == 4)
+        {
+            ScoreP4++;
+        }
+    }
 }
